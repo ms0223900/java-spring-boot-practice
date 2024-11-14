@@ -5,7 +5,7 @@ public class Solution {
         if (s.length() != goal.length()) {
             return false;
         }
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 0; i < goal.length(); i++) {
             if (s.contains(goal.substring(i)) && s.contains(goal.substring(0, i))) {
                 return true;
             }
