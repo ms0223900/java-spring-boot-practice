@@ -6,16 +6,21 @@ public class CountFairPairs {
     public int countFairPairs(int[] nums, int lower, int upper) {
         Arrays.sort(nums);
 
-        return getCountFairPairsBiggerThanLower(nums, lower) - getCountFairPairsBiggerThanLower(nums, upper + 1);
+        return getCountFairPairsBiggerThanMin(nums, lower) - getCountFairPairsBiggerThanMin(nums, upper + 1);
     }
 
-    private int getCountFairPairsBiggerThanLower(int[] nums, int lower) {
+    private int getCountFairPairsBiggerThanMin(int[] nums, int lower) {
         int count = 0;
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
+        int i = 0;
+        int j = nums.length - 1;
+        for (j = nums.length - 1; j > 0; j--) {
+            i = 0;
+            while (i < j) {
                 if (nums[i] + nums[j] >= lower) {
-                    count++;
+                    count += j - i;
+                    break;
                 }
+                i++;
             }
         }
         return count;
