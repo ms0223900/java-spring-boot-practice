@@ -1,7 +1,7 @@
 package com.leetcode;
 
 public class ShortestSubArr {
-    public int findLength(int[] nums) {
+    public int findLengthOfShortestSubarray(int[] nums) {
         int res = nums.length;
 
         for (int i = 0; i < nums.length; i++) {
