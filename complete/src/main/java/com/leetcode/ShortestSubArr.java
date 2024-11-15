@@ -6,15 +6,13 @@ public class ShortestSubArr {
 
         for (int i = 0; i < nums.length; i++) {
             for (int j = i; j < nums.length; j++) {
-                int[] leftSlice = new int[i];
-                System.arraycopy(nums, 0, leftSlice, 0, i);
+                if (i > 0 && j > 0 && nums[i - 1] > nums[j]) {
+                    continue;
+                }
 
-                int[] rightSlice = new int[nums.length - j];
-                System.arraycopy(nums, j, rightSlice, 0, nums.length - j);
-
-                int[] merged = new int[leftSlice.length + rightSlice.length];
-                System.arraycopy(leftSlice, 0, merged, 0, leftSlice.length);
-                System.arraycopy(rightSlice, 0, merged, leftSlice.length, rightSlice.length);
+                int[] merged = new int[i + (nums.length - j)];
+                System.arraycopy(nums, 0, merged, 0, i);
+                System.arraycopy(nums, j, merged, i, nums.length - j);
 
                 if (isSorted(merged)) {
                     res = Math.min(res, j - i);
