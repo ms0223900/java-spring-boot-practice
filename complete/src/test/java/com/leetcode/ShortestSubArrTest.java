@@ -22,4 +22,11 @@ public class ShortestSubArrTest {
         ShortestSubArr shortestSubArr = new ShortestSubArr();
         assertEquals(0, shortestSubArr.findLengthOfShortestSubarray(new int[] { 1, 2, 3 }));
     }
+
+    @Test
+    public void testFindLength4() {
+        ShortestSubArr shortestSubArr = new ShortestSubArr();
+        assertEquals(7,
+                shortestSubArr.findLengthOfShortestSubarray(new int[] { 10, 13, 17, 21, 15, 15, 9, 17, 22, 22, 13 }));
+    }
 }
