@@ -2,17 +2,29 @@ package com.leetcode;
 
 public class ShortestSubarray {
     public int shortestSubarray(int[] nums, int k) {
-        int minLength = Integer.MAX_VALUE;
-        for (int i = 0; i < nums.length; i++) {
-            int sum = 0;
-            for (int j = i; j < nums.length; j++) {
-                sum += nums[j];
-                if (sum >= k) {
-                    minLength = Math.min(minLength, j - i + 1);
-                    break;
-                }
-            }
+        int n = nums.length;
+        long[] sum = new long[n + 1];
+
+        for (int i = 0; i < n; i++) {
+            sum[i + 1] = sum[i] + nums[i];
         }
-        return minLength == Integer.MAX_VALUE ? -1 : minLength;
+
+        int[] q = new int[n + 1];
+        int l = 0, r = 0;
+        int minLength = n + 1;
+
+        for (int i = 0; i < sum.length; i++) {
+            while (r > l && sum[i] >= sum[q[l]] + k) {
+                minLength = Math.min(minLength, i - q[l++]);
+            }
+
+            while (r > l && sum[i] <= sum[q[r - 1]]) {
+                r--;
+            }
+
+            q[r++] = i;
+        }
+
+        return minLength <= n ? minLength : -1;
     }
 }
