@@ -1,11 +1,9 @@
 package com.leetcode;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class CountUnguarded {
-    int wall = 1;
-    int guard = 2;
+    int guarded = 1;
+    int wall = 2;
+    int guard = 3;
 
     public int countUnguarded(int m, int n, int[][] guards, int[][] walls) {
         int[][] grid = new int[m][n];
@@ -17,45 +15,35 @@ public class CountUnguarded {
             grid[guard[0]][guard[1]] = this.guard;
         }
 
-        Set<String> guardedCells = new HashSet<>();
+        int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
         for (int[] guard : guards) {
-            // x to right
-            for (int i = guard[0] + 1; i < m; i++) {
-                if (isGuarded(grid, i, guard[1])) {
-                    break;
-                }
-                guardedCells.add(i + "," + guard[1]);
-            }
+            for (int[] direction : directions) {
+                int dx = direction[0];
+                int dy = direction[1];
 
-            // x to left
-            for (int i = guard[0] - 1; i >= 0; i--) {
-                if (isGuarded(grid, i, guard[1])) {
-                    break;
-                }
-                guardedCells.add(i + "," + guard[1]);
-            }
+                int x = guard[0] + dx;
+                int y = guard[1] + dy;
 
-            // y to top
-            for (int j = guard[1] + 1; j < n; j++) {
-                if (isGuarded(grid, guard[0], j)) {
-                    break;
+                while (x >= 0 && x < m && y >= 0 && y < n && !isGuarded(grid, x, y)) {
+                    grid[x][y] = this.guarded;
+                    x += dx;
+                    y += dy;
                 }
-                guardedCells.add(guard[0] + "," + j);
-            }
-
-            // y to bottom
-            for (int j = guard[1] - 1; j >= 0; j--) {
-                if (isGuarded(grid, guard[0], j)) {
-                    break;
-                }
-                guardedCells.add(guard[0] + "," + j);
             }
         }
 
-        return m * n - guards.length - walls.length - guardedCells.size();
+        int count = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     private boolean isGuarded(int[][] grid, int i, int j) {
-        return grid[i][j] == this.guard || grid[i][j] == this.wall;
+        return grid[i][j] > 1;
     }
 }
