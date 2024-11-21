@@ -13,7 +13,6 @@ public class MaximumSubArraySum {
         Set<Integer> set = new HashSet<>();
         for (int i = 0; i < nums.length - k + 1; i++) {
             long sum = 0;
-            int preNum = -1;
 
             if (currentSum > 0 && !set.contains(nums[i + k - 1])) {
                 sum = currentSum - nums[i - 1] + nums[i + k - 1];
@@ -23,13 +22,13 @@ public class MaximumSubArraySum {
                 continue;
             }
             for (int j = i; j < i + k; j++) {
-                set.add(nums[j]);
-                if (preNum == nums[j]) {
+                if (set.contains(nums[j])) {
                     sum = 0;
+                    set.remove(nums[j]);
                     break;
                 }
+                set.add(nums[j]);
                 sum += nums[j];
-                preNum = nums[j];
             }
             currentSum = sum;
             maxSum = Math.max(maxSum, sum);

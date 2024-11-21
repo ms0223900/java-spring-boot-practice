@@ -14,8 +14,8 @@ public class MaximumSubArraySumTest {
     @Test
     public void testMaximumSubArraySum1() {
         MaximumSubArraySum maximumSubArraySum = new MaximumSubArraySum();
-        assertEquals(16, maximumSubArraySum.maximumSubarraySum(new int[] { 2, 5, 4, 5 }, 4));
-        assertEquals(16, maximumSubArraySum.maximumSubarraySum2(new int[] { 2, 5, 4, 5 }, 4));
+        assertEquals(0, maximumSubArraySum.maximumSubarraySum(new int[] { 2, 5, 4, 5 }, 4));
+        assertEquals(0, maximumSubArraySum.maximumSubarraySum2(new int[] { 2, 5, 4, 5 }, 4));
     }
 
     @Test
