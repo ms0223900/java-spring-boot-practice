@@ -10,17 +10,17 @@ public class MaxEqualRowsAfterFlips {
 
         for (int i = 0; i < matrix.length; i++) {
             int[] row = matrix[i];
-            String key = "";
+            StringBuilder key = new StringBuilder();
 
             for (int j = 0; j < row.length; j++) {
                 int bit = row[j];
                 if (row[0] == 0) {
-                    key += bit;
+                    key.append(bit);
                 } else {
-                    key += bit ^ 1;
+                    key.append(bit ^ 1);
                 }
             }
-            map.merge(key, 1, Integer::sum);
+            map.merge(key.toString(), 1, Integer::sum);
         }
 
         return Collections.max(map.values());
